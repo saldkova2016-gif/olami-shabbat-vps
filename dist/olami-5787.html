@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5787 в Олами · Запись на новый учебный сезон</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Caveat:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+              hand: ['Caveat', 'cursive'],
+            },
+            colors: {
+              ink: '#0F0626',
+              lilac: '#7554FF',
+              lilac2: '#5E3BE0',
+              lime: '#C4F000',
+              cream: '#F7F5FF',
+              soft: '#EFEAFF',
+              pink: '#FFD6E5',
+              blue: '#D6E8FF',
+              dark: '#1A1230',
+            },
+            borderRadius: { '4xl': '32px', '5xl': '40px' },
+          },
+        },
+      }
+    </script>
+    <style>
+      html { scroll-behavior: smooth; }
+      body { font-family: 'Inter', sans-serif; color: #0F0626; background: #fff; -webkit-font-smoothing: antialiased; }
+
+      .fade-up { opacity: 0; transform: translateY(40px); transition: opacity .8s ease, transform .8s ease; }
+      .fade-up.show { opacity: 1; transform: none; }
+
+      /* Hero purple area with curved bottom-right */
+      .hero-purple {
+        background: radial-gradient(140% 100% at 50% 0%, #8a6cff 0%, #7554FF 50%, #6a48f0 100%);
+        position: relative;
+      }
+      .hero-purple::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: -2px;
+        width: 18%;
+        height: 80px;
+        background: #fff;
+        border-top-left-radius: 60px;
+      }
+      .hero-purple::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 18%;
+        bottom: -2px;
+        height: 1px;
+        background: #fff;
+      }
+      /* Wave-curve top for purple bottom section */
+      .curve-purple-top {
+        position: relative;
+        background: #7554FF;
+      }
+      .curve-purple-top::before {
+        content: '';
+        position: absolute;
+        left: 0; top: -1px;
+        width: 18%;
+        height: 80px;
+        background: #fff;
+        border-bottom-right-radius: 60px;
+      }
+
+      /* Chat bubbles */
+      .bubble {
+        background: #fff;
+        color: #0F0626;
+        padding: 14px 18px;
+        border-radius: 22px;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 1.3;
+        position: relative;
+        box-shadow: 0 12px 30px -8px rgba(0,0,0,0.15);
+        white-space: nowrap;
+      }
+      .bubble.pink { background: #FFD6E5; }
+      .bubble.lilac { background: #EFEAFF; }
+      .bubble.blue { background: #D6E8FF; }
+      .bubble.lime { background: #C4F000; }
+      .bubble-tail-l::before, .bubble-tail-r::before {
+        content: '';
+        position: absolute;
+        bottom: 8px;
+        width: 16px; height: 16px;
+        background: inherit;
+        border-radius: 0 0 12px 0;
+      }
+      .bubble-tail-l::before { left: -6px; transform: rotate(40deg); }
+      .bubble-tail-r::before { right: -6px; transform: rotate(-40deg) scaleX(-1); }
+
+      /* Memoji circle */
+      .memoji {
+        width: 64px; height: 64px;
+        background: linear-gradient(135deg, #fff 0%, #FFE9D6 100%);
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 44px;
+        line-height: 1;
+        box-shadow: 0 12px 24px -8px rgba(0,0,0,0.2);
+      }
+      .memoji.lg { width: 80px; height: 80px; font-size: 56px; }
+
+      /* Float anim */
+      @keyframes float { 0%,100% { transform: translateY(0) rotate(var(--rot,0deg)); } 50% { transform: translateY(-10px) rotate(var(--rot,0deg)); } }
+      .floaty { animation: float 6s ease-in-out infinite; }
+      .floaty.d1 { animation-delay: -1s; }
+      .floaty.d2 { animation-delay: -2s; }
+      .floaty.d3 { animation-delay: -3s; }
+      .floaty.d4 { animation-delay: -4s; }
+
+      /* CTA button with embedded lime circular arrows */
+      .cta-white {
+        background: #fff;
+        color: #0F0626;
+        border-radius: 999px;
+        padding: 6px 6px 6px 28px;
+        font-weight: 800;
+        font-size: 17px;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        box-shadow: 0 12px 30px -8px rgba(0,0,0,0.2);
+        transition: transform .2s ease;
+      }
+      .cta-white:hover { transform: translateY(-2px); }
+      .cta-white .arr {
+        background: #C4F000; color: #0F0626;
+        width: 44px; height: 44px;
+        border-radius: 999px;
+        display: inline-flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+
+      /* Section eyebrow label (uppercase tiny) */
+      .eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #6F6A85; }
+
+      /* Section title */
+      .stitle { font-size: clamp(38px, 5vw, 64px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; color: #0F0626; }
+
+      /* 3D illustration circle */
+      .illu-circle {
+        width: 100%;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #fff 0%, #EFEAFF 70%, #DCD3FF 100%);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 84px;
+        box-shadow: inset 0 -10px 30px rgba(117,84,255,0.08);
+      }
+
+      /* Plus connector */
+      .plus { font-size: 28px; font-weight: 800; color: #0F0626; }
+
+      /* Project card colored */
+      .pcard {
+        border-radius: 24px;
+        padding: 28px 22px 24px;
+        aspect-ratio: 3/4;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+        transition: transform .35s ease;
+      }
+      .pcard:hover { transform: translateY(-6px); }
+      .pcard .ill {
+        font-size: 110px;
+        line-height: 1;
+        text-align: center;
+        flex: 1;
+        display: flex; align-items: center; justify-content: center;
+        filter: drop-shadow(0 12px 20px rgba(0,0,0,0.15));
+      }
+      .pcard .label { font-weight: 800; font-size: 17px; text-align: center; }
+
+      /* Soft check pill row */
+      .pill {
+        background: #EFEAFF;
+        border-radius: 22px;
+        padding: 18px 22px;
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .pill.no { background: #FFE8EE; }
+      .pill .ico {
+        width: 32px; height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #B5A8FF, #7554FF);
+        color: #fff;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+        font-weight: 800;
+      }
+      .pill.no .ico { background: linear-gradient(135deg, #FFB5C2, #FF6B8A); }
+
+      /* Result bubble grid layout */
+      .results-grid { position: relative; min-height: 360px; }
+
+      /* Star marker for timeline */
+      .star-marker {
+        width: 36px; height: 36px;
+        background: #C4F000;
+        border-radius: 50%;
+        display: inline-flex; align-items: center; justify-content: center;
+        color: #0F0626; font-size: 18px;
+      }
+
+      .scribble { font-family: 'Caveat', cursive; }
+    </style>
+  </head>
+  <body class="overflow-x-hidden selection:bg-lime selection:text-ink">
+    <!-- =================== HERO PURPLE =================== -->
+    <section class="hero-purple text-white pb-24">
+      <header class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-7 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-2">
+          <span class="font-black text-2xl tracking-tight">OLAMI</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-8 text-[15px] font-semibold text-white/80">
+          <a href="#about" class="hover:text-white">О сезоне</a>
+          <a href="#paths" class="hover:text-white">Твои пути ▾</a>
+          <a href="#months" class="hover:text-white">12 месяцев</a>
+          <a href="#registration" class="hover:text-white">Календарь</a>
+        </nav>
+        <a href="#registration" class="bg-white text-ink font-bold text-sm px-5 py-3 rounded-full hover:bg-cream transition-colors">Регистрация на сезон</a>
+      </header>
+
+      <div class="max-w-[1400px] mx-auto px-6 lg:px-12 pt-20 md:pt-28 text-center relative">
+        <!-- Floating memojis with bubbles -->
+        <div class="hidden md:flex items-end gap-3 absolute top-6 left-6 lg:left-20 floaty d1" style="--rot:-3deg">
+          <div class="bubble bubble-tail-r pink">Нашла свою семью!</div>
+          <div class="memoji">👩‍🦰</div>
+        </div>
+
+        <div class="hidden md:flex items-end gap-3 absolute top-6 right-6 lg:right-20 floaty d2" style="--rot:2deg">
+          <div class="memoji">🧑‍🎓</div>
+          <div class="bubble bubble-tail-l blue">Прокачал лидерство!</div>
+        </div>
+
+        <div class="hidden md:flex items-end gap-3 absolute bottom-44 left-2 lg:left-10 floaty d3" style="--rot:4deg">
+          <div class="memoji">🧑‍💻</div>
+          <div class="bubble bubble-tail-l lilac">Запустил свой проект!</div>
+        </div>
+
+        <div class="hidden md:flex items-end gap-3 absolute bottom-44 right-2 lg:right-10 floaty d4" style="--rot:-4deg">
+          <div class="bubble bubble-tail-r lime">Получил госдиплом!</div>
+          <div class="memoji">👨‍💼</div>
+        </div>
+
+        <h1 class="fade-up text-5xl sm:text-6xl lg:text-8xl font-black tracking-tight leading-[0.95] uppercase max-w-5xl mx-auto">
+          5787 в Olami.<br />
+          Шагни в новый сезон
+        </h1>
+
+        <p class="fade-up text-white/85 text-lg md:text-xl mt-8 max-w-2xl mx-auto leading-relaxed font-medium">
+          Приглашаем тебя в яркий и осмысленный год в самом живом еврейском комьюнити Москвы.
+          Наши ценности живут в каждом месяце, проекте и встрече. Готов шагнуть в 5787 год вместе с нами?
+        </p>
+
+        <div class="fade-up mt-10 flex justify-center">
+          <a href="#registration" class="cta-white group">
+            Записаться на сезон 5787
+            <span class="arr">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+            <span class="arr">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </a>
+        </div>
+
+        <!-- Decorative sparkles around -->
+        <div class="absolute top-32 right-1/4 text-white/30 hidden lg:block">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5z"/></svg>
+        </div>
+        <div class="absolute top-44 left-1/4 text-lime/60 hidden lg:block">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5z"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================== О СЕЗОНЕ — Circles + plus =================== -->
+    <section id="about" class="py-24">
+      <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+        <div class="fade-up max-w-3xl mb-16">
+          <div class="eyebrow mb-4">О сезоне</div>
+          <h2 class="stitle">Всё, что приготовили<br/>для тебя в 5787</h2>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-9 gap-3 lg:gap-2 items-center">
+          <div class="fade-up lg:col-span-2 text-center">
+            <div class="illu-circle">🎯</div>
+            <p class="mt-4 font-bold text-ink text-sm md:text-base">Цели и смыслы<br/><span class="text-ink/55 font-medium text-sm">для жизни и учёбы</span></p>
+          </div>
+          <div class="plus hidden lg:flex justify-center">+</div>
+          <div class="fade-up lg:col-span-2 text-center">
+            <div class="illu-circle">🚀</div>
+            <p class="mt-4 font-bold text-ink text-sm md:text-base">Запуск своего проекта<br/><span class="text-ink/55 font-medium text-sm">с менторами Olami</span></p>
+          </div>
+          <div class="plus hidden lg:flex justify-center">+</div>
+          <div class="fade-up lg:col-span-2 text-center">
+            <div class="illu-circle">🤝</div>
+            <p class="mt-4 font-bold text-ink text-sm md:text-base">Сообщество друзей<br/><span class="text-ink/55 font-medium text-sm">которое становится семьёй</span></p>
+          </div>
+          <div class="plus hidden lg:flex justify-center">+</div>
+          <div class="fade-up lg:col-span-2 text-center">
+            <div class="illu-circle">✨</div>
+            <p class="mt-4 font-bold text-ink text-sm md:text-base">Шабаты и праздники<br/><span class="text-ink/55 font-medium text-sm">от которых заряжаешься</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================== РЕЗУЛЬТАТЫ — Floating bubbles =================== -->
+    <section class="py-20 bg-cream">
+      <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+        <div class="fade-up text-center mb-12">
+          <div class="eyebrow mb-3">Результаты</div>
+          <h2 class="stitle">Что ты получишь от сезона</h2>
+        </div>
+
+        <div class="results-grid max-w-5xl mx-auto">
+          <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-5 md:gap-6">
+            <div class="fade-up flex items-center gap-3 floaty d1" style="--rot:-3deg">
+              <div class="w-9 h-9 rounded-full bg-lime flex items-center justify-center shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F0626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="bubble lilac">Найдёшь друзей-семью</div>
+            </div>
+
+            <div class="fade-up flex items-center gap-3 floaty d2 sm:mt-8" style="--rot:2deg">
+              <div class="w-9 h-9 rounded-full bg-lime flex items-center justify-center shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F0626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="bubble pink">Получишь госдиплом</div>
+            </div>
+
+            <div class="fade-up flex items-center gap-3 floaty d3" style="--rot:-2deg">
+              <div class="w-9 h-9 rounded-full bg-lime flex items-center justify-center shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F0626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="bubble blue">Запустишь свой проект</div>
+            </div>
+
+            <div class="fade-up flex items-center gap-3 floaty d4 sm:mt-6" style="--rot:3deg">
+              <div class="w-9 h-9 rounded-full bg-lime flex items-center justify-center shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F0626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="bubble lilac">Найдёшь опору и смысл</div>
+            </div>
+
+            <div class="fade-up flex items-center gap-3 floaty d1" style="--rot:-3deg">
+              <div class="w-9 h-9 rounded-full bg-lime flex items-center justify-center shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F0626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="bubble pink">Прокачаешь лидерство</div>
+            </div>
+
+            <div class="fade-up flex items-center gap-3 floaty d2 sm:mt-4" style="--rot:2deg">
+              <div class="w-9 h-9 rounded-full bg-lime flex items-center justify-center shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F0626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div class="bubble blue">Будешь в центре движения</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================== ВЫБЕРИ СВОЙ ПУТЬ — 4 colored cards =================== -->
+    <section id="paths" class="py-24">
+      <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+        <div class="fade-up max-w-3xl mb-12">
+          <div class="eyebrow mb-4">Что ты можешь</div>
+          <h2 class="stitle">Выбери свой путь<br/>и запустись в 5787</h2>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+          <div class="fade-up pcard bg-lilac text-white">
+            <div></div>
+            <div class="ill">📖</div>
+            <div class="label">Хевруты Торы и глубокое обучение</div>
+          </div>
+
+          <div class="fade-up pcard bg-soft text-ink">
+            <div></div>
+            <div class="ill">🕯️</div>
+            <div class="label">Шабаты, Шабатоны<br/>и праздники</div>
+          </div>
+
+          <div class="fade-up pcard bg-dark text-white">
+            <div></div>
+            <div class="ill">🤝</div>
+            <div class="label">Менторская программа<br/>и личный рост</div>
+          </div>
+
+          <div class="fade-up pcard bg-pink text-ink">
+            <div></div>
+            <div class="ill">🚀</div>
+            <div class="label">Свой проект<br/>и волонтёрство</div>
+          </div>
+        </div>
+
+        <p class="fade-up mt-6 flex items-center gap-3 text-ink/65 text-sm md:text-base">
+          <span class="w-6 h-6 rounded-full border border-ink/30 flex items-center justify-center text-xs font-bold">!</span>
+          Хочешь что-то своё? Поездки, тренинги, интенсивы — всё это тоже здесь. Напиши в форме регистрации.
+        </p>
+      </div>
+    </section>
+
+    <!-- =================== 12 МЕСЯЦЕВ — clean grid =================== -->
+    <section id="months" class="py-24 bg-cream">
+      <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+        <div class="fade-up max-w-3xl mb-12">
+          <div class="eyebrow mb-4">12 месяцев · 12 сил</div>
+          <h2 class="stitle">Каждый месяц —<br/>новая ценность сезона</h2>
+          <p class="text-ink/65 text-lg leading-relaxed font-medium mt-6 max-w-2xl">
+            Новый учебный год мы проживаем через еврейские месяцы и их глубокие ценности.
+            Вот как это будет у нас:
+          </p>
+        </div>
+
+        <div id="months-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+
+        <!-- Adar II featured -->
+        <div class="fade-up mt-6 bg-ink text-white rounded-4xl p-7 md:p-9 relative overflow-hidden">
+          <div class="absolute -top-12 -right-12 w-72 h-72 bg-lilac rounded-full blur-[120px] opacity-50"></div>
+          <div class="absolute -bottom-12 -left-12 w-64 h-64 bg-lime rounded-full blur-[120px] opacity-20"></div>
+          <div class="relative z-10 grid md:grid-cols-[auto_1fr_auto] gap-6 md:gap-10 items-center">
+            <div class="flex items-center gap-4">
+              <div class="text-5xl">☀️</div>
+              <div>
+                <div class="text-[11px] font-bold text-lime tracking-widest uppercase mb-1">Високосный месяц</div>
+                <h3 class="text-3xl md:text-4xl font-black leading-none">Адар II</h3>
+              </div>
+            </div>
+            <div>
+              <div class="text-lg md:text-xl font-bold mb-1 text-lime">Связь с Творцом</div>
+              <p class="text-white/85 leading-relaxed text-sm md:text-base">
+                Углубление духовной связи и ощущение присутствия Творца в повседневной жизни.
+                Благодарность и духовное наполнение.
+              </p>
+            </div>
+            <a href="#registration" class="hidden md:inline-flex items-center gap-2 bg-white text-ink px-5 py-3 rounded-full font-bold text-sm">
+              Хочу в Олами →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================== УСЛОВИЯ — pills =================== -->
+    <section class="py-24">
+      <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
+        <div class="fade-up max-w-3xl mb-12">
+          <div class="eyebrow mb-4">Почему именно Олами</div>
+          <h2 class="stitle">Что делает Олами<br/>по-настоящему твоим</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 mb-10">
+          <div class="fade-up pill"><div class="ico">✓</div><div><strong class="block font-bold mb-1">Ценности работают на практике</strong><span class="text-ink/65 text-sm">Не лозунги — каждый месяц проживаем конкретную силу через проекты и встречи.</span></div></div>
+          <div class="fade-up pill"><div class="ico">✓</div><div><strong class="block font-bold mb-1">Растёшь, не теряя себя</strong><span class="text-ink/65 text-sm">Твой путь, твоя скорость, твои выводы. Мы рядом и подсветим следующий шаг.</span></div></div>
+          <div class="fade-up pill"><div class="ico">✓</div><div><strong class="block font-bold mb-1">Друзья, что становятся семьёй</strong><span class="text-ink/65 text-sm">На Шабатах, в хевруте, в поездках — встречи на годы вперёд.</span></div></div>
+          <div class="fade-up pill"><div class="ico">✓</div><div><strong class="block font-bold mb-1">Ярко, современно, по-настоящему</strong><span class="text-ink/65 text-sm">Еврейская жизнь без скуки и формальностей. Так, как ты сам захотел бы её прожить.</span></div></div>
+        </div>
+
+        <p class="fade-up text-ink/55 text-sm font-bold uppercase tracking-widest mb-4">Кому может не подойти</p>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="fade-up pill no"><div class="ico">✕</div><div class="text-ink/80 text-sm">Если ты ищешь формальные лекции без живого общения и проектов</div></div>
+          <div class="fade-up pill no"><div class="ico">✕</div><div class="text-ink/80 text-sm">Если не готов(а) включиться в комьюнити и регулярно появляться</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================== РЕГИСТРАЦИЯ (purple) =================== -->
+    <section id="registration" class="curve-purple-top py-24 text-white relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-lime rounded-full blur-[180px] opacity-10 pointer-events-none"></div>
+
+      <div class="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
+        <div class="grid lg:grid-cols-2 gap-16 items-start">
+          <div>
+            <div class="fade-up eyebrow text-lime mb-4">Начнём?</div>
+            <h2 class="fade-up text-4xl lg:text-6xl font-black tracking-tight mb-6 leading-[1.05] uppercase">
+              Присоединяйся<br/>к сезону <span class="text-lime">5787</span>
+            </h2>
+            <p class="fade-up text-white/85 text-lg mb-8 max-w-md leading-relaxed font-medium">
+              Места ограничены. Самые крутые проекты разбирают первыми.
+              Оставь заявку — мы свяжемся в ближайшее время.
+            </p>
+
+            <!-- Floating memojis -->
+            <div class="hidden md:flex items-center gap-5 mt-12 flex-wrap">
+              <div class="flex items-end gap-3 floaty d1" style="--rot:-3deg">
+                <div class="memoji">👩‍🦱</div>
+                <div class="bubble bubble-tail-l pink">Скорей записываюсь!</div>
+              </div>
+              <div class="flex items-end gap-3 floaty d3 mt-6" style="--rot:3deg">
+                <div class="bubble bubble-tail-r lime">Уже там!</div>
+                <div class="memoji">🧑‍💼</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fade-up">
+            <form class="bg-white text-ink p-6 md:p-10 rounded-5xl shadow-[0_30px_60px_-20px_rgba(0,0,0,0.4)]">
+              <div class="space-y-4">
+                <div class="grid sm:grid-cols-2 gap-4">
+                  <input type="text" placeholder="Имя" class="w-full bg-cream px-5 py-4 rounded-2xl text-sm font-semibold text-ink border border-transparent focus:border-lilac focus:outline-none transition-colors" />
+                  <input type="text" placeholder="Фамилия" class="w-full bg-cream px-5 py-4 rounded-2xl text-sm font-semibold text-ink border border-transparent focus:border-lilac focus:outline-none transition-colors" />
+                </div>
+                <div class="grid sm:grid-cols-2 gap-4">
+                  <input type="text" placeholder="Дата рождения (ДД.ММ.ГГГГ)" class="w-full bg-cream px-5 py-4 rounded-2xl text-sm font-semibold text-ink border border-transparent focus:border-lilac focus:outline-none transition-colors" />
+                  <input type="tel" placeholder="+7 (___) ___-__-__" class="w-full bg-cream px-5 py-4 rounded-2xl text-sm font-semibold text-ink border border-transparent focus:border-lilac focus:outline-none transition-colors" />
+                </div>
+                <input type="email" placeholder="E-mail" class="w-full bg-cream px-5 py-4 rounded-2xl text-sm font-semibold text-ink border border-transparent focus:border-lilac focus:outline-none transition-colors" />
+                <select class="w-full bg-cream px-5 py-4 rounded-2xl text-sm font-semibold text-ink/60 border border-transparent focus:border-lilac focus:outline-none appearance-none cursor-pointer transition-colors">
+                  <option value="" disabled selected hidden>Связь с еврейством</option>
+                  <option value="mat">По матери</option>
+                  <option value="pat">По отцу</option>
+                  <option value="both">Оба родителя</option>
+                  <option value="other">Другое</option>
+                </select>
+                <label class="flex items-start gap-3 mt-4 pt-2 cursor-pointer">
+                  <input type="checkbox" class="mt-1 w-4 h-4 rounded border-gray-300 text-lilac focus:ring-lilac" required />
+                  <span class="text-xs text-ink/60 font-medium leading-tight">
+                    Я согласен(а) с политикой конфиденциальности и даю согласие на обработку персональных данных.
+                  </span>
+                </label>
+                <button type="submit" class="w-full cta-white justify-center mt-4" style="background:#0F0626;color:#fff;">
+                  Отправить заявку
+                  <span class="arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0F0626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-ink text-white/60 py-10">
+      <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div class="font-black text-xl text-white">OLAMI</div>
+        <div class="text-sm font-medium">© Olami Moscow · сезон 5787</div>
+      </div>
+    </footer>
+
+    <script>
+      const VALUES = [
+        { m: 'Нисан',  t: 'Обновление и новые старты',  c: 'soft',  e: '🌱' },
+        { m: 'Ияр',    t: 'Постоянное развитие',        c: 'pink',  e: '📈' },
+        { m: 'Сиван',  t: 'Знания Торы',                c: 'blue',  e: '📖' },
+        { m: 'Тамуз',  t: 'Сила и стойкость',           c: 'soft',  e: '🛡️' },
+        { m: 'Ав',     t: 'Поддержка друг друга',       c: 'pink',  e: '🤝' },
+        { m: 'Элул',   t: 'Поиск смысла',               c: 'blue',  e: '🧭' },
+        { m: 'Тишрей', t: 'Единство в разнообразии',    c: 'soft',  e: '🕊️' },
+        { m: 'Хешван', t: 'Основы и стабильность',      c: 'pink',  e: '⚓' },
+        { m: 'Кислев', t: 'Каждый человек талантлив',   c: 'blue',  e: '✨' },
+        { m: 'Тевет',  t: 'Устойчивость и обучение',    c: 'soft',  e: '📚' },
+        { m: 'Шват',   t: 'Гармония и рост',            c: 'pink',  e: '🌿' },
+        { m: 'Адар',   t: 'Радость и единство',         c: 'blue',  e: '🎉' },
+      ];
+      const COLORS = {
+        soft:  { bg:'#EFEAFF', accent:'#7554FF' },
+        pink:  { bg:'#FFD6E5', accent:'#E55A8A' },
+        blue:  { bg:'#D6E8FF', accent:'#3D74E5' },
+      };
+      const grid = document.getElementById('months-grid');
+      VALUES.forEach((v, i) => {
+        const c = COLORS[v.c];
+        const el = document.createElement('div');
+        el.className = 'fade-up rounded-3xl p-5 md:p-6 flex flex-col gap-3 transition-transform hover:-translate-y-1';
+        el.style.background = c.bg;
+        el.innerHTML = `
+          <div class="flex justify-between items-start">
+            <div class="text-3xl">${v.e}</div>
+            <div class="text-[11px] font-black tracking-widest" style="color:${c.accent}">0${i+1 < 10 ? i+1 : ''}${i+1 >= 10 ? i+1 : ''}</div>
+          </div>
+          <div class="mt-2">
+            <h3 class="font-black text-xl text-ink leading-none">${v.m}</h3>
+            <p class="text-ink/70 font-semibold text-sm mt-2 leading-snug">${v.t}</p>
+          </div>
+        `;
+        grid.appendChild(el);
+      });
+      // Fix numbering for 10-12
+      document.querySelectorAll('#months-grid > div').forEach((el, i) => {
+        const num = el.querySelector('.tracking-widest');
+        num.textContent = String(i+1).padStart(2,'0');
+      });
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('show');
+            io.unobserve(e.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -10% 0px' });
+      document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+    </script>
+  </body>
+</html>
